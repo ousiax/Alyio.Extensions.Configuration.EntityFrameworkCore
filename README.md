@@ -2,20 +2,46 @@
 
 EntityFrameworkCore configuration provider implementation for Microsoft.Extensions.Configuration to load configuration arbitrary from database.
 
+```console
+> sqlite3 kv.db
+SQLite version 3.38.5 2022-05-06 15:25:27
+Enter ".help" for usage hints.
+sqlite> .tables
+KeyValuePairs
+sqlite> .schema KeyValuePairs
+CREATE TABLE IF NOT EXISTS "KeyValuePairs" (
+    "pName" TEXT NOT NULL CONSTRAINT "PK_KeyValuePairs" PRIMARY KEY,
+    "pValue" TEXT NULL
+);
+sqlite> select * from KeyValuePairs;
+Blog1|http://blog1.com
+Blog2|http://blog2.com
+sqlite> .exit
+```
+
 ```cs
-var host = Host.CreateDefaultBuilder(args);
+using Alyio.Extensions.Configuration.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-host.ConfigureHostConfiguration(builder =>
-{
-    builder.AddJsonFile("hostsettings.json", optional: true);
-});
+var connectString = "Data Source=kv.db";
+var tableName = "KeyValuePairs";
+var keyColumnName = "pName";
+var valueColumeName = "pValue";
 
-host.ConfigureAppConfiguration((ctx, builder) =>
+var builder = new ConfigurationBuilder()
+    .AddEntityFrameworkCore(dbOpt => dbOpt.UseSqlite(connectString), tableName, keyColumnName, valueColumeName);
+
+var configuration = builder.Build();
+
+foreach (var conf in configuration.AsEnumerable())
 {
-    var connectString = ctx.Configuration.GetConnectionString("kvdb");
-    var tableName = ctx.Configuration.GetValue<string>("tableName");
-    var keyColumnName = ctx.Configuration.GetValue<string>("keyColumnName");
-    var valueColumeName = ctx.Configuration.GetValue<string>("valueColumeName");
-    builder.AddEntityFrameworkCore(dbOpt => dbOpt.UseSqlite(connectString), tableName, keyColumnName, valueColumeName);
-});
+    Console.WriteLine("{0} = {1}", conf.Key, conf.Value);
+}
+```
+
+```console
+> dotnet run
+Blog2 = http://blog2.com
+Blog1 = http://blog1.com
 ```
