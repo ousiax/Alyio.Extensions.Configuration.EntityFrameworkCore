@@ -5,17 +5,20 @@ namespace Alyio.Extensions.Configuration.EntityFrameworkCore;
 
 internal sealed class EntityFrameworkCoreConfigurationProvider : ConfigurationProvider
 {
-    private readonly Action<DbContextOptionsBuilder> _optionsAction;
+    private readonly Action<DbContextOptionsBuilder> _dbContextOptionsBuilderAction;
+    private readonly EntityOptions _entityOptions;
 
-    public EntityFrameworkCoreConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction) => _optionsAction = optionsAction;
+    public EntityFrameworkCoreConfigurationProvider(
+        Action<DbContextOptionsBuilder> dbContextOptionsBuilderAction,
+        EntityOptions entityOptions)
+        => (_dbContextOptionsBuilderAction, _entityOptions) = (dbContextOptionsBuilderAction, entityOptions);
 
     public override void Load()
     {
         var builder = new DbContextOptionsBuilder<KeyValuePairDbContext>();
+        _dbContextOptionsBuilderAction(builder);
 
-        _optionsAction(builder);
-
-        using (var dbContext = new KeyValuePairDbContext(builder.Options))
+        using (var dbContext = new KeyValuePairDbContext(builder.Options, _entityOptions))
         {
             if (dbContext == null || dbContext.KeyValuePairs == null)
             {

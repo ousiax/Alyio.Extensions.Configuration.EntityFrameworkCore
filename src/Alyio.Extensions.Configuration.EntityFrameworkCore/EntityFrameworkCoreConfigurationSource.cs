@@ -5,9 +5,14 @@ namespace Alyio.Extensions.Configuration.EntityFrameworkCore;
 
 internal sealed class EntityFrameworkCoreConfigurationSource : IConfigurationSource
 {
-    private readonly Action<DbContextOptionsBuilder> _optionsAction;
+    private readonly Action<DbContextOptionsBuilder> _dbContextOptionsBuilderAction;
+    private readonly EntityOptions _entityOptions;
 
-    public EntityFrameworkCoreConfigurationSource(Action<DbContextOptionsBuilder> optionsAction) => _optionsAction = optionsAction;
+    public EntityFrameworkCoreConfigurationSource(
+        Action<DbContextOptionsBuilder> dbContextOptionsBuilderAction,
+        EntityOptions entityOptions)
+        => (_dbContextOptionsBuilderAction, _entityOptions) = (dbContextOptionsBuilderAction, entityOptions);
 
-    public IConfigurationProvider Build(IConfigurationBuilder builder) => new EntityFrameworkCoreConfigurationProvider(_optionsAction);
+    public IConfigurationProvider Build(IConfigurationBuilder builder) 
+        => new EntityFrameworkCoreConfigurationProvider(_dbContextOptionsBuilderAction, _entityOptions);
 }

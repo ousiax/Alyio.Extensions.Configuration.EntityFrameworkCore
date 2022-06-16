@@ -10,17 +10,25 @@ public class EntityFrameworkExtensionsTests
     {
         // Arrange
         const string databaseName = "Data Source=kv.db";
-        using (var context = new MemoryDbContext(new DbContextOptionsBuilder<MemoryDbContext>().UseSqlite(databaseName).Options))
+        const string tableName = "KeyValuePairs";
+        const string keyColumnName = "pName";
+        const string valueColumeName = "pValue";
+        using (var context = new KVDbContext(
+            new DbContextOptionsBuilder<KVDbContext>().UseSqlite(databaseName).Options,
+            tableName,
+            keyColumnName,
+            valueColumeName
+            ))
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             context.AddRange(
-                new KeyValuePair { Key = "Blog1", Value = "http://blog1.com" },
-                new KeyValuePair { Key = "Blog2", Value = "http://blog2.com" });
+                new Configuration { Key = "Blog1", Value = "http://blog1.com" },
+                new Configuration { Key = "Blog2", Value = "http://blog2.com" });
             context.SaveChanges();
         }
         var configurationBuilder = new ConfigurationBuilder();
-        configurationBuilder.AddEntityFrameworkCore(opt => opt.UseSqlite(databaseName));
+        configurationBuilder.AddEntityFrameworkCore(opt => opt.UseSqlite(databaseName), tableName, keyColumnName, valueColumeName);
         var configuration = configurationBuilder.Build();
 
         // Act and Assert
@@ -28,20 +36,34 @@ public class EntityFrameworkExtensionsTests
         Assert.Equal("http://blog2.com", configuration.GetSection("Blog2").Value);
     }
 
-    class MemoryDbContext : DbContext
+    sealed class KVDbContext : DbContext
     {
-        public MemoryDbContext(DbContextOptions<MemoryDbContext> options) : base(options)
-        {
-        }
+        private readonly string _tableName;
+        private readonly string _keyColumnName;
+        private readonly string _valueColumeName;
 
-        public DbSet<KeyValuePair> KeyValuePairs => Set<KeyValuePair>();
+        public KVDbContext(
+            DbContextOptions<KVDbContext> dbContextOptions,
+            string tableName,
+            string keyColumnName,
+            string valueColumeName) : base(dbContextOptions)
+            => (_tableName, _keyColumnName, _valueColumeName) = (tableName, keyColumnName, valueColumeName);
+
+        public IQueryable<Configuration> Configurations => Set<Configuration>().AsNoTracking();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<KeyValuePair>();
-            entity.Property(kv => kv.Key).HasColumnName("pName");
-            entity.Property(kv => kv.Value).HasColumnName("pValue");
-            entity.HasKey(x => x.Key);
+            var entity = modelBuilder.Entity<Configuration>();
+            entity.ToTable(_tableName).HasKey(e => e.Key);
+            entity.Property(kv => kv.Key).HasColumnName(_keyColumnName);
+            entity.Property(kv => kv.Value).HasColumnName(_valueColumeName);
         }
+    }
+
+    sealed class Configuration
+    {
+        public string? Key { get; set; }
+        public string? Value { get; set; }
+
     }
 }

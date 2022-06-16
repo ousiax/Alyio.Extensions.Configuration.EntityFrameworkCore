@@ -1,0 +1,8 @@
+﻿{
+  "ConnectionStrings": {
+    "kvdb": "Data Source=kv.db"
+  },
+  "tableName": "KeyValuePairs",
+  "keyColumnName": "pName",
+  "valueColumeName": "pValue"
+}
