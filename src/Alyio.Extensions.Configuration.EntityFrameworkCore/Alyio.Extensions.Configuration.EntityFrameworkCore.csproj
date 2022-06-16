@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
+    <VersionPrefix>6.0.0</VersionPrefix>
     <PackageProjectUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
