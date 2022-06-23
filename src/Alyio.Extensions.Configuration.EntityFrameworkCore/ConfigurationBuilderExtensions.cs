@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Alyio.Extensions.Configuration.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Alyio.Extensions.Configuration.EntityFrameworkCore;
+namespace Microsoft.Extensions.Configuration;
 
 /// <summary>
 /// Extension methods for adding <see cref="EntityFrameworkCoreConfigurationProvider"/>.

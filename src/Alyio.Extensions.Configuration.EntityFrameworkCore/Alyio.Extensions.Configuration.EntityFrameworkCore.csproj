@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
-    <VersionPrefix>6.0.0</VersionPrefix>
+    <VersionPrefix>6.0.1</VersionPrefix>
     <PackageProjectUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -15,7 +15,7 @@
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Copyright>Copyright (c) 2022 XU</Copyright>
-    <Description>EntityFrameworkCore configuration provider implementation for Microsoft.Extensions.Configuration. </Description>
+    <Description>EntityFrameworkCore configuration provider implementation for Microsoft.Extensions.Configuration.</Description>
     <Authors>XU</Authors>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
