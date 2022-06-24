@@ -1,8 +1,10 @@
 ﻿using Alyio.Extensions.Configuration.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
+using Microsoft.EntityFrameworkCore;
+
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace Microsoft.Extensions.Configuration;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// Extension methods for adding <see cref="EntityFrameworkCoreConfigurationProvider"/>.

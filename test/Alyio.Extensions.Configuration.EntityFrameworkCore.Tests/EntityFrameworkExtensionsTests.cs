@@ -36,7 +36,7 @@ public class EntityFrameworkExtensionsTests
         Assert.Equal("http://blog2.com", configuration.GetSection("Blog2").Value);
     }
 
-    sealed class KVDbContext : DbContext
+    private sealed class KVDbContext : DbContext
     {
         private readonly string _tableName;
         private readonly string _keyColumnName;
@@ -47,7 +47,9 @@ public class EntityFrameworkExtensionsTests
             string tableName,
             string keyColumnName,
             string valueColumeName) : base(dbContextOptions)
-            => (_tableName, _keyColumnName, _valueColumeName) = (tableName, keyColumnName, valueColumeName);
+        {
+            (_tableName, _keyColumnName, _valueColumeName) = (tableName, keyColumnName, valueColumeName);
+        }
 
         public IQueryable<Configuration> Configurations => Set<Configuration>().AsNoTracking();
 
@@ -60,10 +62,9 @@ public class EntityFrameworkExtensionsTests
         }
     }
 
-    sealed class Configuration
+    private sealed class Configuration
     {
         public string? Key { get; set; }
         public string? Value { get; set; }
-
     }
 }

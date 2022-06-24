@@ -18,6 +18,7 @@
     <Description>EntityFrameworkCore configuration provider implementation for Microsoft.Extensions.Configuration.</Description>
     <Authors>XU</Authors>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

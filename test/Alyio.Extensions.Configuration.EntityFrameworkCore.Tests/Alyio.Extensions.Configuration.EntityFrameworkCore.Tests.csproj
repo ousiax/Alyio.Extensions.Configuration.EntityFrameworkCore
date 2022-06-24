@@ -7,6 +7,9 @@
     <CollectCoverage>true</CollectCoverage>
     <CoverletOutputFormat>opencover</CoverletOutputFormat>
     <IsPackable>false</IsPackable>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <NoWarn>$(nowarn);IDE0058;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

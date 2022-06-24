@@ -11,8 +11,12 @@ internal sealed class EntityFrameworkCoreConfigurationSource : IConfigurationSou
     public EntityFrameworkCoreConfigurationSource(
         Action<DbContextOptionsBuilder> dbContextOptionsBuilderAction,
         EntityOptions entityOptions)
-        => (_dbContextOptionsBuilderAction, _entityOptions) = (dbContextOptionsBuilderAction, entityOptions);
+    {
+        (_dbContextOptionsBuilderAction, _entityOptions) = (dbContextOptionsBuilderAction, entityOptions);
+    }
 
-    public IConfigurationProvider Build(IConfigurationBuilder builder) 
-        => new EntityFrameworkCoreConfigurationProvider(_dbContextOptionsBuilderAction, _entityOptions);
+    public IConfigurationProvider Build(IConfigurationBuilder builder)
+    {
+        return new EntityFrameworkCoreConfigurationProvider(_dbContextOptionsBuilderAction, _entityOptions);
+    }
 }
