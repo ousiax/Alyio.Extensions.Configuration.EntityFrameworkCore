@@ -31,6 +31,8 @@ internal sealed class EntityFrameworkCoreConfigurationProvider : ConfigurationPr
         Data = dbContext
             .KeyValuePairs
             .Where(kv => !string.IsNullOrEmpty(kv.Key))
+            .AsEnumerable()
+            .DistinctBy(kv => kv.Key)
             .ToDictionary(kv => kv.Key, kv => kv.Value);
     }
 }
