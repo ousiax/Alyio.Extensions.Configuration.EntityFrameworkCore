@@ -1,7 +1,7 @@
 [![Alyio.Extensions.Configuration.EntityFrameworkCore](https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore/actions/workflows/ci.yml)
 
 ```ps
-dotnet add package Alyio.Extensions.Configuration.EntityFrameworkCore --version 3.0.1
+dotnet add package Alyio.Extensions.Configuration.EntityFrameworkCore --version 3.0.2
 ```
 
 EntityFrameworkCore configuration provider implementation for Microsoft.Extensions.Configuration to load configuration arbitrary from database.
