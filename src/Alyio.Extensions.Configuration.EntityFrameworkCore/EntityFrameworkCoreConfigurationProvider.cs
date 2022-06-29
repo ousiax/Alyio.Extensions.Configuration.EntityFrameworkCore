@@ -28,7 +28,22 @@ internal sealed class EntityFrameworkCoreConfigurationProvider : ConfigurationPr
             this.Data = dbContext
                 .KeyValuePairs
                 .Where(kv => !string.IsNullOrEmpty(kv.Key))
+                .AsEnumerable()
+                .Distinct(new KeyValuePairEqualityComparer())
                 .ToDictionary(kv => kv.Key, kv => kv.Value);
+        }
+    }
+
+    private class KeyValuePairEqualityComparer : IEqualityComparer<KeyValuePair>
+    {
+        public bool Equals(KeyValuePair x, KeyValuePair y)
+        {
+            return x.Key == y.Key;
+        }
+
+        public int GetHashCode(KeyValuePair obj)
+        {
+            return obj.Key.GetHashCode();
         }
     }
 }

@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <VersionPrefix>3.0.1</VersionPrefix>
+    <VersionPrefix>3.0.3</VersionPrefix>
     <PackageProjectUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
