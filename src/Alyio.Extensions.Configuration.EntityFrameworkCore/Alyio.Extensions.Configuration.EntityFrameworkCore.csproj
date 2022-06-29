@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <VersionPrefix>3.0.1</VersionPrefix>
+    <VersionPrefix>3.0.2</VersionPrefix>
     <PackageProjectUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</PackageProjectUrl>
     <RepositoryUrl>https://github.com/qqbuby/Alyio.Extensions.Configuration.EntityFrameworkCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -18,6 +18,7 @@
     <Description>EntityFrameworkCore configuration provider implementation for Microsoft.Extensions.Configuration.</Description>
     <Authors>XU</Authors>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
